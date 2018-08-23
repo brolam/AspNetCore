@@ -15,5 +15,11 @@ namespace CoreLAB.Controllers
         {
             return View();
         }
+
+        // GET: /<controller>/
+        public IActionResult New()
+        {
+            return View();
+        }
     }
 }

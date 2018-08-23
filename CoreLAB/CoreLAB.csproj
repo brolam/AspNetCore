@@ -10,5 +10,6 @@
 
   <ItemGroup>
     <Folder Include="Views\HelloWorld\" />
+    <Folder Include="Views\Movies\" />
   </ItemGroup>
 </Project>
