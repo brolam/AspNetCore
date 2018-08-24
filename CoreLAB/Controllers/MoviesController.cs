@@ -41,6 +41,9 @@ namespace CoreLAB.Controllers
                    
                 }
                 return RedirectToAction("Index");
+            } else
+            {
+                ViewData["Message"] = "You need to fill all fields move.";
             }
             return View(movie);
         }
