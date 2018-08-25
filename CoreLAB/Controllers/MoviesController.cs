@@ -23,9 +23,13 @@ namespace CoreLAB.Controllers
         }
 
         // GET: Movies
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Movie.ToListAsync());
+            var moveis = from move in _context.Movie select move;
+            if (!String.IsNullOrEmpty(searchString)){
+                moveis = moveis.Where(move => move.Title.Contains(searchString));
+            }
+            return View(await moveis.ToListAsync());
         }
 
         // GET: Movies/Details/5
