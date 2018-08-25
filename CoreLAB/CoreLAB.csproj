@@ -17,4 +17,12 @@
     <Content Remove="Views\Moviesold\Create.cshtml" />
     <Content Remove="Views\Moviesold\Delete.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Migrations\20180825152352_Added Move Comments.cs" />
+    <Compile Remove="Migrations\20180825153924_InitialCreate.cs" />
+    <Compile Remove="Migrations\20180825153924_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20180825154537_InitialCreate.cs" />
+    <Compile Remove="Migrations\20180825154537_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\MvcMovieContextModelSnapshot.cs" />
+  </ItemGroup>
 </Project>

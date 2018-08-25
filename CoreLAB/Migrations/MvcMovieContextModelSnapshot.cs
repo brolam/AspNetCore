@@ -16,6 +16,23 @@ namespace CoreLAB.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.0-preview1-35029");
 
+            modelBuilder.Entity("CoreLAB.Models.Comment", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Content")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("Created");
+
+                    b.Property<int>("MovieID");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("CoreLAB.Models.Movie", b =>
                 {
                     b.Property<int>("ID")
@@ -25,7 +42,8 @@ namespace CoreLAB.Migrations
 
                     b.Property<DateTime>("Published");
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .HasMaxLength(40);
 
                     b.HasKey("ID");
 

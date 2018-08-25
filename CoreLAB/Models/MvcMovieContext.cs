@@ -11,5 +11,6 @@ namespace CoreLAB.Models
         }
 
         public DbSet<CoreLAB.Models.Movie> Movie { get; set; }
+        public DbSet<CoreLAB.Models.Comment> Comments { get; set; }
     }
 }
