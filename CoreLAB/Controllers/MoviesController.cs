@@ -1,51 +1,156 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using CoreLAB.Models;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CoreLAB.Controllers
 {
+    /// <summary>
+    /// Movies controller.
+    /// https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app-mac/adding-model?view=aspnetcore-2.2
+    /// </summary>
     public class MoviesController : Controller
     {
-        // GET: /<controller>/
-        public IActionResult Index()
+        private readonly MvcMovieContext _context;
+
+        public MoviesController(MvcMovieContext context)
+        {
+            _context = context;
+        }
+
+        // GET: Movies
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.Movie.ToListAsync());
+        }
+
+        // GET: Movies/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var movie = await _context.Movie
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            return View(movie);
+        }
+
+        // GET: Movies/Create
+        public IActionResult Create()
         {
             return View();
         }
 
-        // GET: /<controller>/
-        public IActionResult New()
-        {
-            return View();
-        }
-
-
+        // POST: Movies/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult New(int id, [Bind("Title,Published,Price")] Movie movie)
+        public async Task<IActionResult> Create([Bind("ID,Title,Published,Price")] Movie movie)
         {
+            if (ModelState.IsValid)
+            {
+                _context.Add(movie);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(movie);
+        }
+
+        // GET: Movies/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var movie = await _context.Movie.FindAsync(id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+            return View(movie);
+        }
+
+        // POST: Movies/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,Published,Price")] Movie movie)
+        {
+            if (id != movie.ID)
+            {
+                return NotFound();
+            }
+
             if (ModelState.IsValid)
             {
                 try
                 {
-                    //_context.Update(movie);
-                    //await _context.SaveChangesAsync();
+                    _context.Update(movie);
+                    await _context.SaveChangesAsync();
                 }
-                catch
+                catch (DbUpdateConcurrencyException)
                 {
-                    return NotFound();
-                   
+                    if (!MovieExists(movie.ID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
-                return RedirectToAction("Index");
-            } else
-            {
-                ViewData["Message"] = "You need to fill all fields move.";
+                return RedirectToAction(nameof(Index));
             }
             return View(movie);
+        }
+
+        // GET: Movies/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var movie = await _context.Movie
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            return View(movie);
+        }
+
+        // POST: Movies/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var movie = await _context.Movie.FindAsync(id);
+            _context.Movie.Remove(movie);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool MovieExists(int id)
+        {
+            return _context.Movie.Any(e => e.ID == id);
         }
     }
 }

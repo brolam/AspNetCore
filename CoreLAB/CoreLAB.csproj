@@ -6,12 +6,15 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0-preview1-35029" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.0-preview1-35029" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.0-preview1-35029" />
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="Views\HelloWorld\" />
-    <Folder Include="Views\Movies\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Views\Moviesold\Create.cshtml" />
+    <Content Remove="Views\Moviesold\Delete.cshtml" />
   </ItemGroup>
 </Project>
