@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CoreLAB.Models;
+using CoreLAB.ViewsModels;
 
 namespace CoreLAB.Controllers
 {
@@ -26,7 +27,8 @@ namespace CoreLAB.Controllers
         public async Task<IActionResult> Index(string searchString)
         {
             var moveis = from move in _context.Movie select move;
-            if (!String.IsNullOrEmpty(searchString)){
+            if (!String.IsNullOrEmpty(searchString))
+            {
                 moveis = moveis.Where(move => move.Title.Contains(searchString));
             }
             return View(await moveis.ToListAsync());
@@ -47,8 +49,8 @@ namespace CoreLAB.Controllers
             {
                 return NotFound();
             }
-
-            return View(movie);
+            var movieViewModel = new MovieViewModel(movie);
+            return View(movieViewModel);
         }
 
         // GET: Movies/Create
@@ -57,32 +59,13 @@ namespace CoreLAB.Controllers
             return View();
         }
 
-        // GET: Movies/Create
-        public async Task<IActionResult> CreateComment(int? id)
-        {
-            if (id == null) return NotFound();
-            var movie = await _context.Movie.FindAsync(id);
-            var movieViewModel = new ViewsModels.MovieViewModel(movie);
-            return View(movieViewModel);
-        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateComment(int id, Comment comment)
-        {
-            var movieViewModel = new ViewsModels.MovieViewModel();
-            movieViewModel.Comment = comment;
-            return await CreateComment(id, movieViewModel);
-
-        }
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateComment(int id, ViewsModels.MovieViewModel movieViewModel)
+        public async Task<IActionResult> Details(int id, ViewsModels.MovieViewModel movieViewModel)
         {
 
-            if (id != movieViewModel.Comment.MovieID)
+            if (id != movieViewModel.NewComment.MovieID)
             {
                 return NotFound();
             }
@@ -90,12 +73,12 @@ namespace CoreLAB.Controllers
             {
                 try
                 {
-                    _context.Add(movieViewModel.Comment);
+                    _context.Add(movieViewModel.NewComment);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MovieExists(movieViewModel.Comment.MovieID))
+                    if (!MovieExists(movieViewModel.NewComment.MovieID))
                     {
                         return NotFound();
                     }
@@ -104,11 +87,8 @@ namespace CoreLAB.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
-            var movie = await _context.Movie.FindAsync(id);
-            movieViewModel.Movie = movie;
-            return View(movie);
+            return await Details(id);
         }
 
         // POST: Movies/Create

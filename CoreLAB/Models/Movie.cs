@@ -8,18 +8,14 @@ namespace CoreLAB.Models
     {
         public int ID { get; set; }
         [StringLength(40)]
+        [Required]
         public string Title { get; set; }
         [Display(Name = "Published Date")]
         [DataType(DataType.Date)]
+        [Required]
         public DateTime Published { get; set; }
+        [Required]
         public decimal Price { get; set; }
         public ICollection<Comment> Comments { get; set; }
-        public Comment NewComment(){
-            var comment = new Comment
-            {
-                MovieID = ID
-            };
-            return comment;
-        }
     }
 }

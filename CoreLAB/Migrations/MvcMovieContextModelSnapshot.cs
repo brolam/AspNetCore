@@ -22,6 +22,7 @@ namespace CoreLAB.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Content")
+                        .IsRequired()
                         .HasMaxLength(50);
 
                     b.Property<DateTime>("Created");
@@ -45,6 +46,7 @@ namespace CoreLAB.Migrations
                     b.Property<DateTime>("Published");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasMaxLength(40);
 
                     b.HasKey("ID");

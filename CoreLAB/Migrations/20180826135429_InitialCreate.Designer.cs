@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreLAB.Migrations
 {
     [DbContext(typeof(MvcMovieContext))]
-    [Migration("20180825230401_InitialCreate")]
+    [Migration("20180826135429_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,7 @@ namespace CoreLAB.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Content")
+                        .IsRequired()
                         .HasMaxLength(50);
 
                     b.Property<DateTime>("Created");
@@ -47,6 +48,7 @@ namespace CoreLAB.Migrations
                     b.Property<DateTime>("Published");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasMaxLength(40);
 
                     b.HasKey("ID");

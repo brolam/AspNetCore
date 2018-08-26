@@ -9,9 +9,11 @@ namespace CoreLAB.Models
         public int MovieID { get; set; }
         [Display(Name = "Comment")]
         [StringLength(50)]
+        [Required]
         public string Content { get; set; }
         [Display(Name = "Comment Date")]
         [DataType(DataType.Date)]
+        [Required]
         public DateTime Created { get; set; }
     }
 }

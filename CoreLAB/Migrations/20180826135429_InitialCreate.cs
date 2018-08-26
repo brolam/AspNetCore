@@ -13,7 +13,7 @@ namespace CoreLAB.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Title = table.Column<string>(maxLength: 40, nullable: true),
+                    Title = table.Column<string>(maxLength: 40, nullable: false),
                     Published = table.Column<DateTime>(nullable: false),
                     Price = table.Column<decimal>(nullable: false)
                 },
@@ -29,7 +29,7 @@ namespace CoreLAB.Migrations
                     ID = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     MovieID = table.Column<int>(nullable: false),
-                    Content = table.Column<string>(maxLength: 50, nullable: true),
+                    Content = table.Column<string>(maxLength: 50, nullable: false),
                     Created = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>

@@ -6,7 +6,7 @@ namespace CoreLAB.ViewsModels
     public class MovieViewModel
     {
         public Movie Movie { get; set; }
-        public Comment Comment { get; set; }
+        public Comment NewComment { get; set; }
 
         public MovieViewModel()
         {
@@ -15,9 +15,10 @@ namespace CoreLAB.ViewsModels
         public MovieViewModel(Movie movie)
         {
             Movie = movie;
-            Comment = new Comment
+            NewComment = new Comment
             {
-                MovieID = Movie.ID
+                MovieID = Movie.ID,
+                Created = DateTime.Now
             };
         }
     }
