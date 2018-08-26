@@ -30,6 +30,8 @@ namespace CoreLAB.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("MovieID");
+
                     b.ToTable("Comments");
                 });
 
@@ -48,6 +50,14 @@ namespace CoreLAB.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Movie");
+                });
+
+            modelBuilder.Entity("CoreLAB.Models.Comment", b =>
+                {
+                    b.HasOne("CoreLAB.Models.Movie")
+                        .WithMany("Comments")
+                        .HasForeignKey("MovieID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

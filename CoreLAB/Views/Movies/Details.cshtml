@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Details";
+    var newComment = Model.NewComment();
 }
 
 <h2>Details</h2>
@@ -34,3 +35,51 @@
     <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateComment">
+            <input type="hidden" asp-for="NewComment().MovieID" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NewComment().Content" class="control-label"></label>
+                <input asp-for="NewComment().Content" class="form-control" />
+                <span asp-validation-for="NewComment().Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NewComment().Created" class="control-label"></label>
+                <input asp-for="NewComment().Created" class="form-control" />
+                <span asp-validation-for="NewComment().Created" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Comments.First().Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comments.First().Created)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in @Model.Comments)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Created)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreLAB.Migrations
 {
     [DbContext(typeof(MvcMovieContext))]
-    [Migration("20180825161539_InitialCreate")]
+    [Migration("20180825230401_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,6 +32,8 @@ namespace CoreLAB.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("MovieID");
+
                     b.ToTable("Comments");
                 });
 
@@ -50,6 +52,14 @@ namespace CoreLAB.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Movie");
+                });
+
+            modelBuilder.Entity("CoreLAB.Models.Comment", b =>
+                {
+                    b.HasOne("CoreLAB.Models.Movie")
+                        .WithMany("Comments")
+                        .HasForeignKey("MovieID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

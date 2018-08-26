@@ -41,6 +41,7 @@ namespace CoreLAB.Controllers
             }
 
             var movie = await _context.Movie
+                                      .Include(c => c.Comments)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (movie == null)
             {
@@ -54,6 +55,60 @@ namespace CoreLAB.Controllers
         public IActionResult Create()
         {
             return View();
+        }
+
+        // GET: Movies/Create
+        public async Task<IActionResult> CreateComment(int? id)
+        {
+            if (id == null) return NotFound();
+            var movie = await _context.Movie.FindAsync(id);
+            var movieViewModel = new ViewsModels.MovieViewModel(movie);
+            return View(movieViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateComment(int id, Comment comment)
+        {
+            var movieViewModel = new ViewsModels.MovieViewModel();
+            movieViewModel.Comment = comment;
+            return await CreateComment(id, movieViewModel);
+
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateComment(int id, ViewsModels.MovieViewModel movieViewModel)
+        {
+
+            if (id != movieViewModel.Comment.MovieID)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Add(movieViewModel.Comment);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!MovieExists(movieViewModel.Comment.MovieID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            var movie = await _context.Movie.FindAsync(id);
+            movieViewModel.Movie = movie;
+            return View(movie);
         }
 
         // POST: Movies/Create

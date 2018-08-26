@@ -13,6 +13,13 @@ namespace CoreLAB.Models
         [DataType(DataType.Date)]
         public DateTime Published { get; set; }
         public decimal Price { get; set; }
-        ICollection<Comment> Comments { get; set; }
+        public ICollection<Comment> Comments { get; set; }
+        public Comment NewComment(){
+            var comment = new Comment
+            {
+                MovieID = ID
+            };
+            return comment;
+        }
     }
 }

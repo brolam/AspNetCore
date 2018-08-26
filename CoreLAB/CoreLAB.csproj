@@ -12,10 +12,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\HelloWorld\" />
+    <Folder Include="ViewsModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Views\Moviesold\Create.cshtml" />
     <Content Remove="Views\Moviesold\Delete.cshtml" />
+    <Content Remove="Views\Movies\Edit %28copiar%29.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Migrations\20180825152352_Added Move Comments.cs" />
@@ -24,5 +26,7 @@
     <Compile Remove="Migrations\20180825154537_InitialCreate.cs" />
     <Compile Remove="Migrations\20180825154537_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\MvcMovieContextModelSnapshot.cs" />
+    <Compile Remove="Migrations\20180825161539_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20180825161539_InitialCreate.cs" />
   </ItemGroup>
 </Project>
