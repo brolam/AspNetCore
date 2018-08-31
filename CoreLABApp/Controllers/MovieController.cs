@@ -20,10 +20,10 @@ namespace CoreLABApp.Controllers
         }
 
         // GET: api/values
-        [HttpGet("[action]")]
-        public IEnumerable<string> Get()
+        [HttpGet("[action]/{*q}")]
+        public IEnumerable<string> Search(String q)
         {
-            return new string[] { "value1", "value2" };
+            return new string[] { q, q };
         }
 
         // GET api/values/5

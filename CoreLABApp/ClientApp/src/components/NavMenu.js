@@ -37,6 +37,9 @@ export class NavMenu extends Component {
               <NavItem>
                 <NavLink href="/fetch-data">Fetch data</NavLink>
               </NavItem>
+              <NavItem>
+                <NavLink href="/Movies">Movies</NavLink>
+              </NavItem>
             </Nav>
           </Collapse>
         </Navbar>
