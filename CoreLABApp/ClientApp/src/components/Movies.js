@@ -15,7 +15,7 @@ export class Movies extends Component {
   }
 
   static renderForecastsTable(forecasts) {
-    return (
+      return (
       <table className='table'>
         <thead>
           <tr>
@@ -47,6 +47,7 @@ export class Movies extends Component {
     return (
       <div>
         <h1>Weather forecast</h1>
+        <a href="/Movies/new">New</a>
         <p>This component demonstrates fetching data from the server.</p>
         {contents}
       </div>

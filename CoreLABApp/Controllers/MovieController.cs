@@ -34,9 +34,10 @@ namespace CoreLABApp.Controllers
         }
 
         // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
+        [HttpPost("[action]")]
+        public void New([FromBody]string title, DateTime published, Decimal price)
         {
+            Console.WriteLine(title);
         }
 
         // PUT api/values/5
