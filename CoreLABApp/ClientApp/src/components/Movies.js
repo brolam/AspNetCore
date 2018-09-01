@@ -7,10 +7,11 @@ export class Movies extends Component {
     super(props);
     this.state = { forecasts: [], loading: true };
 
-    fetch('api/SampleData/WeatherForecasts')
+    fetch('api/movies/Search')
       .then(response => response.json())
       .then(data => {
         this.setState({ forecasts: data, loading: false });
+        console.log(data)
       });
   }
 
@@ -19,19 +20,17 @@ export class Movies extends Component {
       <table className='table'>
         <thead>
           <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
+            <th>Title</th>
+            <th>Published</th>
+            <th>Price</th>
           </tr>
         </thead>
         <tbody>
-          {forecasts.map(forecast =>
-            <tr key={forecast.dateFormatted}>
-              <td>{forecast.dateFormatted}</td>
-              <td>{forecast.temperatureC}</td>
-              <td>{forecast.temperatureF}</td>
-              <td>{forecast.summary}</td>
+          {forecasts.map(movie =>
+            <tr key={movie.id}>
+              <td>{movie.title}</td>
+              <td>{movie.published}</td>
+              <td>{movie.price}</td>
             </tr>
           )}
         </tbody>

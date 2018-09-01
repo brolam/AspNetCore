@@ -1,28 +1,23 @@
-﻿import React, { Component } from 'react';
+﻿import React from 'react';
 
-export function MovieNew() {
-    var title = ""
-    var published = Date.now
-    var price = 0.9
-    const postNewMovie = () => {
+export function MovieNew(props) {
+    const handleSave = (event) => {
+        event.preventDefault();  
+        const data = new FormData(event.target); 
         fetch('api/movies/new', {
-            method: 'post',
-            headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ title, published, price })
-        }).then(res => console.log(res))
+            method: 'POST',
+            body: data
+        }).then(res => props.history.push("/Movies") )
     }
 
     return (
         <div>
-            <form>
+            <form onSubmit={handleSave} >
                 <div className="form-group">
                     <label for="inputTitle">Movie</label>
                     <input
-                        onChange={(value) => { title = value }}
                         type="text"
+                        name="Title"
                         className="form-control" id="inputTitle"
                         aria-describedby="titleHelp"
                         placeholder="Enter with a move title"
@@ -32,20 +27,24 @@ export function MovieNew() {
                 <div className="form-group">
                     <label for="inputPublished">Published Date</label>
                     <input
-                        onChange={(value) => { published = value }}
-                        type="Date" className="form-control" id="inputPublished"
+                        type="Date" 
+                        name="Published"
+                        className="form-control" 
+                        id="inputPublished"
                         placeholder="Enter with Movie Published Date"
                     />
                 </div>
                 <div className="form-group">
                     <label for="inputPrice">Price</label>
                     <input
-                        onChange={(value) => { price = value }}
-                        type="number" className="form-control" id="inputPrice"
+                        type="number" 
+                        name="Price"
+                        className="form-control" 
+                        id="inputPrice"
                         placeholder="Enter with Movie Price"
                     />
                 </div>
-                <button type="button" className="btn btn-primary" onClick={ () => postNewMovie()} >Submit</button>
+                <button type="Submit" className="btn btn-primary" >Submit</button>
             </form>
         </div>
     )
