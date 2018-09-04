@@ -1,6 +1,15 @@
 ﻿import React from 'react';
 
-export function MovieNew(props) {
+export function MovieEdit(props) {
+    console.log(props)
+    console.log(props.match.params.id)
+    
+    const getMovie = () => {
+        fetch(`api/movies/{}`, {
+            method: 'GET',
+        }).then(res => props.history.push("/Movies") )
+    }
+
     const handleSave = (event) => {
         event.preventDefault();  
         const data = new FormData(event.target); 
@@ -12,7 +21,7 @@ export function MovieNew(props) {
 
     return (
         <div>
-             <h1>New Movie</h1>
+             <h1>Edit Movie</h1>
             <form onSubmit={handleSave} >
                 <div className="form-group">
                     <label for="inputTitle">Movie</label>

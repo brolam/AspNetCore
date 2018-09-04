@@ -6,6 +6,7 @@ import { FetchData } from './components/FetchData';
 import { Counter } from './components/Counter';
 import { Movies } from './components/Movies';
 import { MovieNew } from './components/MovieNew'
+import { MovieEdit } from './components/MovieEdit'
 
 export default class App extends Component {
   displayName = App.name
@@ -18,6 +19,7 @@ export default class App extends Component {
         <Route path='/fetch-data' component={FetchData} />
         <Route exact path='/movies' component={Movies} />
         <Route exact path='/movies/new' component={MovieNew} />
+        <Route exact path='/movies/:id' component={MovieEdit} />
       </Layout>
     );
   }
