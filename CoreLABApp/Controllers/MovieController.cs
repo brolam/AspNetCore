@@ -60,7 +60,6 @@ namespace CoreLABApp.Controllers
             {
                     _context.Update(movie);
                     _context.SaveChangesAsync();
-                return null ;
             }
             return movie;
         }

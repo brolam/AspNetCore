@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from 'reactstrap';
 
 export class Movies extends Component {
   displayName = Movies.name
@@ -43,8 +44,8 @@ export class Movies extends Component {
               <td>{movie.published}</td>
               <td>{movie.price}</td>
               <td>  
-                <a className="action" onClick={() => this.movieEdi(movie.id) }>Edit</a>  |  
-                <a className="action" onClick={() => this.movieDelete(movie.id)}>Delete</a>  
+                <Button className="btn btn-link" onClick={() => this.movieEdi(movie.id) }>Edit</Button>  
+                <Button className="btn btn-link" onClick={() => this.movieDelete(movie.id)}>Delete</Button>  
               </td>  
             </tr>
           )}
@@ -61,7 +62,7 @@ export class Movies extends Component {
     return (
       <div>
         <h1>Weather forecast</h1>
-        <a className="action" onClick={() => this.props.history.push("/movies/new") } >New</a>
+        <Button type="button" className="btn btn-link" onClick={() => this.props.history.push("/movies/new") } >New</Button>
         <p>This component demonstrates fetching data from the server.</p>
         {contents}
       </div>
