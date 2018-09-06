@@ -68,6 +68,9 @@ namespace CoreLABApp.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            var movie = _context.Movie.FindAsync(id);
+            _context.Movie.Remove(movie.Result);
+            _context.SaveChangesAsync();
         }
     }
 }

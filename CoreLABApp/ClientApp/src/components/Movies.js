@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
+import { MovieDelete}  from './MovieDelete'
 
 export class Movies extends Component {
   displayName = Movies.name
 
   constructor(props) {
     super(props);
-    this.state = { movies: [], loading: true, selectedMovie:{}, deleteMove:{}};
+    this.state = { movies: [], loading: true, selectedMovie:{}, deleteMove:null};
 
     fetch('api/movies/Search')
       .then(response => response.json())
@@ -22,13 +23,9 @@ export class Movies extends Component {
 
   } 
 
-  movieDelete = (id) => {
-    console.log(id)
-
-  } 
-
   renderMoviesTable() {
       return (
+        <div>
       <table className='table'>
         <thead>
           <tr>
@@ -45,12 +42,13 @@ export class Movies extends Component {
               <td>{movie.price}</td>
               <td>  
                 <Button className="btn btn-link" onClick={() => this.movieEdi(movie.id) }>Edit</Button>  
-                <Button className="btn btn-link" onClick={() => this.movieDelete(movie.id)}>Delete</Button>  
+                <Button className="btn btn-link" onClick={() => this.setState({deleteMove:movie})}>Delete</Button>  
               </td>  
             </tr>
           )}
         </tbody>
       </table>
+      </div>
     );
   }
 
@@ -65,6 +63,7 @@ export class Movies extends Component {
         <Button type="button" className="btn btn-link" onClick={() => this.props.history.push("/movies/new") } >New</Button>
         <p>This component demonstrates fetching data from the server.</p>
         {contents}
+        {this.state.deleteMove != null && MovieDelete({movie:this.state.deleteMove, history:this.props.history }) }
       </div>
     );
   }
