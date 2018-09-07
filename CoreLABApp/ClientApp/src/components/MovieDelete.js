@@ -1,17 +1,17 @@
 ﻿import React from 'react';
 
-export function MovieDelete(props) {
-    const movie = props.movie
+export function MovieDelete(
+    movie,
+    onDeletedMovie = (movie) => {},
+    onCancelDeleteMovie = (movie) =>{} 
+) {
+    console.log("deletedMovie:", movie)
     const deleteConfirm = () => {
         fetch('api/movies/' + movie.id, {
             method: 'DELETE'
-        }).then(res => props.history.push("/Movies"))
+        }).then(res => onDeletedMovie(movie))
     }
-
-    const deleteCancel = () => {
-        props.history.push("/Movies")
-    }
-
+    
     const divStyle = {
         display: 'block',
       };
@@ -30,7 +30,7 @@ export function MovieDelete(props) {
                         <p>{movie.title}.</p>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" className="btn btn-secondary" onClick={() => onCancelDeleteMovie(movie)  }>Close</button>
                         <button type="button" className="btn btn-primary" onClick={() => deleteConfirm()}>Delete</button>
                     </div>
                 </div>
